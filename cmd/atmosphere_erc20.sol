@@ -147,11 +147,11 @@ contract EthereumToken is StandardToken {
     event PrePareLockedOut(address indexed _from, uint256 _value);
     //准备退出,需要在合约里记录,公证人需要监控这里的事件,采用相应的操作, 后续应该提供PrePareLockedOutProxy函数,可以保证交易方没有侧链主币的情况下,仍然可以发起合约
     function prePareLockedOut(uint256 value,bytes32 data) public{
-        require(locked[msg.sender]==0); // 没有正在退出的历史交易
+        require(locked[msg.sender]==0); // 没有正在退出的历史交易 data=hash(tx)
         require(balances[msg.sender]>=value);
         locked[msg.sender]=value;
         balances[msg.sender]-=value;
-    main_chain_data[msg.sender]=data;
+        main_chain_data[msg.sender]=data;
         emit PrePareLockedOut(msg.sender,value);
     }
     //公证人在主链上转账到具体地址后,销毁相应记录

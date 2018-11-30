@@ -3,73 +3,76 @@ package kgcenter
 import (
 	"container/list"
 
-	"github.com/ethereum/go-ethereum/common/math"
-	"crypto/rand"
-	"github.com/sirupsen/logrus"
+	"encoding/hex"
 	"math/big"
 	mathrand "math/rand"
 	"time"
+
+	"crypto/rand"
+
+	"github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/configs"
+	"github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter/commitments"
+	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto/secp256k1"
-	"encoding/hex"
+	"github.com/sirupsen/logrus"
 	"github.com/tendermint/go-crypto/tmhash"
-	"github.com/DistributedControlRightManagement/configs"
 )
 
-//lock -in
+var SecureRnd = mathrand.New(mathrand.NewSource(time.Now().UnixNano()))
+
+var PaillierPrivateKey, _ = GenerateKey(rand.Reader, 1023)
+
+//1123
+/*var keyGenerator, _ = paillier.GetThresholdKeyGenerator(256, 666, 5, SecureRnd)
+var PaillierPrivateKeyAll, _ = keyGenerator.Generate()
+var PaillierPrivateKey = PaillierPrivateKeyAll[1]*/
+
+//var zkPublicParams = GenerateParams(configs.G, 256, 512, SecureRnd, &PaillierPrivateKey.PublicKey)
+var zkPublicParams = GenerateParams(configs.G, 256, 512, SecureRnd, &PaillierPrivateKey.PublicKey)
+var masterPK = commitments.GenerateNMMasterPublicKey()
+
 func LockIn() {
 	InitDcrmList()
-	//1、生成我本次负责的片（公私钥）
 	logrus.Info("*********************************************LOCK IN************************************************")
 	for i := 0; i < configs.ThresholdNum; i++ {
 		logrus.Info("[LOCK-IN]（step 1）生成key,Peer ", i+1)
 		LockinKeyGenerate()
 		logrus.Info("************************************************************************************************")
 	}
-	//2、零知识证明
 	ZkProof(dcrmList)
-
 }
 
-func LockOut()  {
+func LockOut() {
 	logrus.Info("*********************************************LOCK OUT************************************************")
-	mappingReq:="013d55da472b04a674955d947932d3aee25beba25a7cea60b4d7472d98a76d09"
-	signature := Sign(dcrmList,EncX,mappingReq)
+	mappingReq := "88888"
+	signature := Sign(dcrmList, EncX, mappingReq)
+	logrus.Info("EncX:", EncX)
 	logrus.Info("[LOCK-OUT]ECDSA(R,S,V) R=", signature.r)
 	logrus.Info("[LOCK-OUT]ECDSA(R,S,V) S=", signature.s)
 	logrus.Info("[LOCK-OUT]ECDSA(R,S,V) V=", signature.GetRecoveryParam())
 	if signature != nil {
-		if signature.verify(mappingReq,PkX,PkY){
+		if signature.verify(mappingReq, PkX, PkY) {
 			logrus.Info("[LOCK-OUT]Signature verified passed")
-		}else {
+		} else {
 			logrus.Info("[LOCK-OUT]Signature verified not passed")
 		}
-	}else {
+	} else {
 		logrus.Error("[LOCK-OUT]signature is null")
 	}
 }
 
-
 var dcrmList *list.List
 var EncX *big.Int
-var PkX,PkY *big.Int
+var PkX, PkY *big.Int
+
 func InitDcrmList() {
-	dcrmList=list.New()
+	dcrmList = list.New()
 	return
 }
 
 //共识参数-私钥片的长度
-var BitSizeOfPrivateKeyShard=256
+var BitSizeOfPrivateKeyShard = 256
 
-/*T=(p,a,b,G,n,h)。
-p a b 曲线
-p 越大计算越慢 200位左右
-p!=n*h
-pt!=1(mod n) 1<=t<=20
-4a3+27b2!=0(mod p)
-G 基点
-n G的阶 素数
-h 曲线上所有点的个数/n  h<=4
-*/
 var peerInfo map[int]*ProverInfo
 
 func LockinKeyGenerate() {
@@ -86,7 +89,7 @@ func LockinKeyGenerate() {
 	math.ReadBits(rRndS256, k)
 	logrus.Info("私钥(片)(32字节)=", k)
 	//k*G->(Gx,Gy),kG即公钥
-	Gx, Gy := configs.G.ScalarBaseMult(k)
+	Gx, Gy := secp256k1.S256().ScalarBaseMult(k)
 	logrus.Info("公钥(片)Gx=", Gx)
 	logrus.Info("公钥(片)Gy=", Gy)
 
@@ -98,8 +101,10 @@ func LockinKeyGenerate() {
 	// 输入参数2：椭圆曲线的x，即私钥(片)
 	// 输入参数3：Paillier选的随机数
 	// 输出：加密私钥(片)产生的加密私钥（属于本节点的）encryptK,K是k,即私钥
-	encryptK :=encrypt(&PaillierPrivateKey.PublicKey, rRndS256, rRndPaillier)
-	logrus.Info("同态加密结果(加密私钥(片))=",encryptK)
+	encryptK := encrypt(&PaillierPrivateKey.PublicKey, rRndS256, rRndPaillier)
+	//1128
+	//encryptK := PaillierPrivateKey.PublicKey.Encrypt(rRndS256).C
+	logrus.Info("同态加密结果(加密私钥(片))=", encryptK)
 
 	//h=hash(M可以广播消息)
 	h := []*big.Int{} //len(h)<=4
@@ -112,9 +117,9 @@ func LockinKeyGenerate() {
 	// 输入参数2：同态加密引擎pbc生成的“权限系统参数”（授权节点才可拥有，相当于私钥分配权利人的证书，发布一次后不可更改，否则checkcommit无法验证，即非法的commit peer）
 	// 输入参数3：h,即用于广播出去其他人验证的秘密（含有本节点负责产生的加密私钥（片）和对应公钥）
 	// 输出：pbc引擎（共识算法）发方的陷门承结果（1、commitment(含对应pbc形式公钥)，2、open(含pbc形式(hash)的密文)）
-	mc := MultiLinnearCommit(SecureRnd, masterPK, h)
-	mcOpen := mc.CmtOpen()
-	mcCmt := mc.CmtCommitment()
+	mc := commitments.MultiLinnearCommit(SecureRnd, masterPK, h)
+	mcOpen := mc.Open
+	mcCmt := mc.Commitment
 	//保存本节点本此任务的私钥、加密信息来源等========================================================
 	tmpPeer := new(ProverInfo)
 	tmpPeer.setxShare(rRndS256)
@@ -123,19 +128,14 @@ func LockinKeyGenerate() {
 	tmpPeer.setxShareRnd(rRndPaillier)
 	tmpPeer.setEncXShare(encryptK)
 	tmpPeer.setMpkEncXiYi(mc)
-	tmpPeer.setOpenEncXiYi(mcOpen)//广播
-	tmpPeer.setCmtEncXiYi(mcCmt)//广播
+	tmpPeer.setOpenEncXiYi(mcOpen) //广播
+	tmpPeer.setCmtEncXiYi(mcCmt)   //广播
 	dcrmList.PushBack(tmpPeer)
 }
 
-var SecureRnd = mathrand.New(mathrand.NewSource(time.Now().UnixNano()))
-var PaillierPrivateKey, _= GenerateKey(rand.Reader, 1024)
-var zkPublicParams=GenerateParams(configs.G,256, 512, SecureRnd, &PaillierPrivateKey.PublicKey)
-var masterPK=GenerateMasterPK()
-
 //1
 func ZkProof(peers *list.List) {
-	var a1=0
+	var a1 = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
 		zkParmsOfLockin := new(Zkp)
@@ -146,85 +146,84 @@ func ZkProof(peers *list.List) {
 			configs.G.Gy,
 			peer.getEncXShare(),
 			peer.getxShareRnd())
-		peer.setZkpKG(zkParmsOfLockin)//广播给其他机器
-		logrus.Info("[LOCK-IN]（step 1）零知识证明,设置证明人计算参数,peer ",a1+1)
+		peer.setZkpKG(zkParmsOfLockin) //广播给其他机器
+		logrus.Info("[LOCK-IN]（step 1）零知识证明,设置证明人计算参数,peer ", a1+1)
 		a1++
 	}
 
-	//check commitment
-	//秘密分发MultiTrapdoorCommitment(commitment,open),masterPK是对有权限签发的节点授权的
-	var a2=0
-	for e := peers.Front(); e != nil; e = e.Next() {
-		peer:=e.Value.(*ProverInfo)
-		if (Checkcommitment(peer.getCmtEncXiYi(), peer.getOpenEncXiYi(), masterPK) == false) {
-			logrus.Fatal("[LOCK-IN]（step 2）Commit验证时发生错误")
-		}else {
-			logrus.Info("[LOCK-IN]（step 2）Commit验证通过,peer ",a2+1)
-		}
-		a2++
-	}
-
 	//check zero knowledge
-	var a3=0
+	var a3 = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
-		rr:=peer.getOpenEncXiYi().GetSecrets()[1]
-		rrlen:=(rr.BitLen()+7)/8
-		rrs:=make([]byte,rrlen)
-		math.ReadBits(rr,rrs)
-		rx,ry:= configs.G.Unmarshal(rrs)
+		rr := peer.getOpenEncXiYi().GetSecrets()[1]
+		rrlen := (rr.BitLen() + 7) / 8
+		rrs := make([]byte, rrlen)
+		math.ReadBits(rr, rrs)
+		rx, ry := configs.G.Unmarshal(rrs)
 		//参数：
 		//1、共识参数
 		//2、秘密
 		if peer.getZkpKG().Verify(zkPublicParams,
-			rx,ry,
+			rx, ry,
 			peer.getOpenEncXiYi().GetSecrets()[0]) {
-			logrus.Info("[LOCK-IN]（step 3）零知识证明通过校验,peer ",a3+1)
-		}else {
-			logrus.Fatal("[LOCK-IN]（step 3）零知识证明校验时未通过,peer ",a3+1)
+			logrus.Info("[LOCK-IN]（step 3）零知识证明通过校验,peer ", a3+1)
+		} else {
+			logrus.Fatal("[LOCK-IN]（step 3）零知识证明校验时未通过,peer ", a3+1)
 		}
 		a3++
 	}
 
 	//保存生成地址
-	var a4=0
+	var a4 = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
-		encPrivate:=calculateEncPrivateKey(peers)
-		peer.setEncX(encPrivate);
-		pkx,pky := calculatePubKey(peers)
-		peer.setPk_x(pkx);//Pk =pulic key
-		peer.setPk_y(pky);
+		encPrivate := calculateEncPrivateKey(peers)
+		peer.setEncX(encPrivate)
+		pkx, pky := calculatePubKey(peers)
+		peer.setPk_x(pkx) //Pk =pulic key
+		peer.setPk_y(pky)
 		logrus.Info("************************************************************")
-		logrus.Info("同态(加法)私钥片的结果,peer ",a4,",私钥长度：",encPrivate.BitLen()/8,"字节,私钥：",encPrivate)
-		logrus.Info("公钥元素x(32):",pkx.Bytes())
-		logrus.Info("公钥元素y(32):",pky.Bytes())
+		logrus.Info("同态(加法)私钥片的结果,peer ", a4, ",私钥位长：", encPrivate.BitLen()/8, "字节,私钥：", encPrivate)
+		logrus.Info("公钥元素x(", pkx.BitLen(), "):", pkx.Bytes())
+		logrus.Info("公钥元素y(", pky.BitLen(), "):", pky.Bytes())
 		addrBytes := new([64]byte)
 		copy(addrBytes[0:32], pkx.Bytes())
 		copy(addrBytes[:32], pky.Bytes())
-		logrus.Info("分布式", configs.ThresholdNum,"个可信的授权节点分配出的地址:=",hex.EncodeToString(tmhash.Sum(addrBytes[:])),",长度:", len(tmhash.Sum(addrBytes[:])))
+		logrus.Info("分布式", configs.ThresholdNum, "个可信的授权节点分配出的地址:=", hex.EncodeToString(tmhash.Sum(addrBytes[:])), ",长度:", len(tmhash.Sum(addrBytes[:])))
 		a4++
 
-		EncX=encPrivate
-		PkX=pkx
-		PkY=pky
+		EncX = encPrivate
+		PkX = pkx
+		PkY = pky
 	}
-	//钱包要比对一下，所有证明人的合成的公私钥要一致
+	//check commitment
+	//秘密分发MultiTrapdoorCommitment(commitment,open),masterPK是对有权限签发的节点授权的
+	var a2 = 0
+
+	for e := peers.Front(); e != nil; e = e.Next() {
+		peer := e.Value.(*ProverInfo)
+		if commitments.CheckCommitment(peer.getCmtEncXiYi(), peer.getOpenEncXiYi(), masterPK) == false {
+			logrus.Fatal("[LOCK-IN]（step 2）Commit验证时发生错误")
+		} else {
+			logrus.Info("[LOCK-IN]（step 2）Commit验证通过,peer ", a2+1)
+		}
+		a2++
+	}
 }
 
-//生成公钥
-func calculatePubKey(peers *list.List) (*big.Int,*big.Int) {
+//生成公钥，随便打乱元素顺序
+func calculatePubKey(peers *list.List) (*big.Int, *big.Int) {
+	peers.MoveToBack(peers.Front())
 	yShare_x0 := ((peers.Front().Value).(*ProverInfo)).getyShare_x()
 	yShare_y0 := ((peers.Front().Value).(*ProverInfo)).getyShare_y()
-
 	e := peers.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
 		yShare_xi := ((e.Value).(*ProverInfo)).getyShare_x()
 		yShare_yi := ((e.Value).(*ProverInfo)).getyShare_y()
 
-		yShare_x0,yShare_y0 = secp256k1.S256().Add(yShare_x0,yShare_y0,yShare_xi,yShare_yi)
+		yShare_x0, yShare_y0 = secp256k1.S256().Add(yShare_x0, yShare_y0, yShare_xi, yShare_yi)
 	}
-	return yShare_x0,yShare_y0
+	return yShare_x0, yShare_y0
 }
 
 //生成私钥
@@ -233,29 +232,34 @@ func calculateEncPrivateKey(peers *list.List) *big.Int {
 	e := peers.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
 		encXi := ((e.Value).(*ProverInfo)).getEncXShare()
-		encX = cipherAdd((&PaillierPrivateKey.PublicKey), encX, encXi); //+c1 c2
+		encX = cipherAdd((&PaillierPrivateKey.PublicKey), encX, encXi) //+c1 c2
+		//1128
+		//encX = PaillierPrivateKey.PublicKey.EAdd(&paillier.Ciphertext{encX}, &paillier.Ciphertext{encXi}).C
 	}
 	return encX
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //lock-out
 //1
-func LockoutCalcCommitment(peers *list.List,encX *big.Int) {
+func LockoutCalcCommitment(peers *list.List, encX *big.Int) {
 	var rhoI, rhoIRnd, uI, vI *big.Int
-	var mpkUiVi *MultiTrapdoorCommitment
-	var openUiVi *Open
-	var cmtUiVi *Commitment
+	var mpkUiVi *commitments.MultiTrapdoorCommitment
+	var openUiVi *commitments.Open
+	var cmtUiVi *commitments.Commitment
 	a := 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		rhoI = RandomFromZn(secp256k1.S256().N)
 		rhoIRnd = RandomFromZnStar((&PaillierPrivateKey.PublicKey).N)
 		uI = encrypt((&PaillierPrivateKey.PublicKey), rhoI, rhoIRnd)
 		vI = cipherMultiply((&PaillierPrivateKey.PublicKey), encX, rhoI)
-
-		var nums= []*big.Int{uI, vI}
-		mpkUiVi = MultiLinnearCommit(SecureRnd, masterPK, nums)
-		openUiVi = mpkUiVi.CmtOpen()
-		cmtUiVi = mpkUiVi.CmtCommitment()
+		//1128
+		/*uI = PaillierPrivateKey.PublicKey.Encrypt(rhoI).C
+		vI = PaillierPrivateKey.PublicKey.ECMult(&paillier.Ciphertext{encX}, rhoI).C*/
+		var nums = []*big.Int{uI, vI}
+		mpkUiVi = commitments.MultiLinnearCommit(SecureRnd, masterPK, nums)
+		openUiVi = mpkUiVi.Open
+		cmtUiVi = mpkUiVi.Commitment
 
 		peer := e.Value.(*ProverInfo)
 		peer.setRhoI(rhoI)
@@ -272,8 +276,8 @@ func LockoutCalcCommitment(peers *list.List,encX *big.Int) {
 }
 
 //2
-func LockoutCalcZeroKnowledgeProverI1(peers *list.List,encX *big.Int)  {
-	var a1=0
+func LockoutCalcZeroKnowledgeProverI1(peers *list.List, encX *big.Int) {
+	var a1 = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
 		zkParmsOfLockouti1 := new(Zkpi1)
@@ -286,21 +290,21 @@ func LockoutCalcZeroKnowledgeProverI1(peers *list.List,encX *big.Int)  {
 			encX,
 			peer.getuI())
 		peer.setZkp1(zkParmsOfLockouti1)
-		logrus.Info("[LOCK-OUT]（step 2）零知识证明i1,设置证明人计算参数,peer ",a1+1)
+		logrus.Info("[LOCK-OUT]（step 2）零知识证明i1,设置证明人计算参数,peer ", a1+1)
 		a1++
 	}
 }
 
 //3
-func LockoutCheckCommitment(peers *list.List)  bool{
-	var a=0
+func LockoutCheckCommitment(peers *list.List) bool {
+	var a = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
-		peer:=e.Value.(*ProverInfo)
-		if (Checkcommitment(peer.getCmtUiVi(), peer.getOpenUiVi(), masterPK) == false) {
+		peer := e.Value.(*ProverInfo)
+		if commitments.CheckCommitment(peer.getCmtUiVi(), peer.getOpenUiVi(), masterPK) == false {
 			logrus.Fatal("[LOCK-OUT]（step 3）Commit验证时发生错误")
 			return false
-		}else {
-			logrus.Info("[LOCK-OUT]（step 3）Commit验证通过,peer ",a+1)
+		} else {
+			logrus.Info("[LOCK-OUT]（step 3）Commit验证通过,peer ", a+1)
 		}
 		a++
 	}
@@ -308,8 +312,8 @@ func LockoutCheckCommitment(peers *list.List)  bool{
 }
 
 //4
-func LockoutVerifyZeroKnowledgeI1(peers *list.List,encX *big.Int) bool {
-	var a= 0
+func LockoutVerifyZeroKnowledgeI1(peers *list.List, encX *big.Int) bool {
+	var a = 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
 		if peer.getZkp1().verify(zkPublicParams, configs.G,
@@ -330,34 +334,33 @@ func LockoutVerifyZeroKnowledgeI1(peers *list.List,encX *big.Int) bool {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-
 //5
-func LockoutCalcCommitmentOfSign(peers *list.List)  {
+func LockoutCalcCommitmentOfSign(peers *list.List) {
 	u := calculateU(peers)
 	v := calculateV(peers)
-	if v.Cmp(big.NewInt(0))==0{
+	if v.Cmp(big.NewInt(0)) == 0 {
 		logrus.Warn("V is 0")
 	}
-	a:= 0
+	a := 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 		kI := RandomFromZn(secp256k1.S256().N)
 		if kI.Sign() == -1 {
-			kI.Add(kI,secp256k1.S256().P)
+			kI.Add(kI, secp256k1.S256().P)
 		}
 		rI := make([]byte, 32)
 		math.ReadBits(kI, rI[:])
-		rIx,rIy := KMulG(rI[:])
+		rIx, rIy := KMulG(rI[:])
 		cI := RandomFromZn(secp256k1.S256().N)
 		cIRnd := RandomFromZnStar((&PaillierPrivateKey.PublicKey).N)
-		mask := encrypt((&PaillierPrivateKey.PublicKey),new(big.Int).Mul(secp256k1.S256().N, cI),cIRnd)
-		wI := cipherAdd((&PaillierPrivateKey.PublicKey),cipherMultiply((&PaillierPrivateKey.PublicKey),u, kI), mask)
-		rIs := secp256k1.S256().Marshal(rIx,rIy)
+		mask := encrypt((&PaillierPrivateKey.PublicKey), new(big.Int).Mul(secp256k1.S256().N, cI), cIRnd)
+		wI := cipherAdd((&PaillierPrivateKey.PublicKey), cipherMultiply((&PaillierPrivateKey.PublicKey), u, kI), mask)
+		rIs := secp256k1.S256().Marshal(rIx, rIy)
 
-		var nums = []*big.Int{new(big.Int).SetBytes(rIs[:]),wI}
-		mpkRiWi := MultiLinnearCommit(SecureRnd,masterPK,nums)
+		var nums = []*big.Int{new(big.Int).SetBytes(rIs[:]), wI}
+		mpkRiWi := commitments.MultiLinnearCommit(SecureRnd, masterPK, nums)
 
-		openRiWi := mpkRiWi.CmtOpen()
-		cmtRiWi := mpkRiWi.CmtCommitment()
+		openRiWi := mpkRiWi.Open
+		cmtRiWi := mpkRiWi.Commitment
 
 		peer := e.Value.(*ProverInfo)
 		peer.setkI(kI)
@@ -370,14 +373,14 @@ func LockoutCalcCommitmentOfSign(peers *list.List)  {
 		peer.setMpkRiWi(mpkRiWi)
 		peer.setOpenRiWi(openRiWi)
 		peer.setCmtRiWi(cmtRiWi)
-		logrus.Info("[LOCK-OUT]（step 5）计算签名的commit,peer ",a+1)
+		logrus.Info("[LOCK-OUT]（step 5）计算签名的commit,peer ", a+1)
 		a++
 	}
 }
 
 //6
-func LockoutCalcZeroKnowledgeProverI2OfSign(peers *list.List)  {
-	a:=0
+func LockoutCalcZeroKnowledgeProverI2OfSign(peers *list.List) {
+	a := 0
 	u := calculateU(peers)
 	for e := peers.Front(); e != nil; e = e.Next() {
 		peer := e.Value.(*ProverInfo)
@@ -393,42 +396,42 @@ func LockoutCalcZeroKnowledgeProverI2OfSign(peers *list.List)  {
 			u,
 			peer.getcIRnd())
 		peer.setZkp_i2(zkParmsOfLockouti2)
-		logrus.Info("[LOCK-OUT]（step 6）零知识证明i2,设置签名的证明人计算参数,peer ",a+1)
+		logrus.Info("[LOCK-OUT]（step 6）零知识证明i2,设置签名的证明人计算参数,peer ", a+1)
 		a++
 	}
 }
 
 //7
-func LockoutCheckCommitmentOfsign(peers *list.List) bool{
+func LockoutCheckCommitmentOfsign(peers *list.List) bool {
 	a := 0
 	for e := peers.Front(); e != nil; e = e.Next() {
-		peer:=e.Value.(*ProverInfo)
-		if Checkcommitment(peer.getCmtRiWi(), peer.getOpenRiWi(),masterPK) == false {
+		peer := e.Value.(*ProverInfo)
+		if commitments.CheckCommitment(peer.getCmtRiWi(), peer.getOpenRiWi(), masterPK) == false {
 			logrus.Fatal("[LOCK-OUT]（step 7）Commit验证时发生错误")
 			return false
 		}
-		logrus.Info("[LOCK-OUT]（step 7）校验commit,peer ",a+1)
-		a = a+1
+		logrus.Info("[LOCK-OUT]（step 7）校验commit,peer ", a+1)
+		a = a + 1
 	}
 	return true
 }
 
 //8
-func LockoutVerifyZeroKnowledgeI2OfSign(peers *list.List,u *big.Int) bool {
+func LockoutVerifyZeroKnowledgeI2OfSign(peers *list.List, u *big.Int) bool {
 	a := 0
 	for e := peers.Front(); e != nil; e = e.Next() {
 
 		rr := ((e.Value).(*ProverInfo)).getOpenRiWi().GetSecrets()[0]
-		rrlen := ((rr.BitLen()+7)/8)
-		rrs := make([]byte,rrlen)
-		math.ReadBits(rr,rrs[:])
-		rx,ry := secp256k1.S256().Unmarshal(rrs[:])
-		peer:=e.Value.(*ProverInfo)
-		if peer.getZkp_i2().verify(zkPublicParams,secp256k1.S256(),
-			rx,ry,u,peer.getOpenRiWi().GetSecrets()[1]) == false {
+		rrlen := ((rr.BitLen() + 7) / 8)
+		rrs := make([]byte, rrlen)
+		math.ReadBits(rr, rrs[:])
+		rx, ry := secp256k1.S256().Unmarshal(rrs[:])
+		peer := e.Value.(*ProverInfo)
+		if peer.getZkp_i2().verify(zkPublicParams, secp256k1.S256(),
+			rx, ry, u, peer.getOpenRiWi().GetSecrets()[1]) == false {
 			logrus.Info("[LOCK-OUT]（step 8）零知识证明校验i2未通过,peer ", a+1)
 			return false
-		}else {
+		} else {
 			logrus.Info("[LOCK-OUT]（step 8）零知识证明通过校验i2,peer ", a+1)
 		}
 		a++
@@ -436,61 +439,60 @@ func LockoutVerifyZeroKnowledgeI2OfSign(peers *list.List,u *big.Int) bool {
 	return true
 }
 
-
 //9
-func LockoutCalcSignature(peers *list.List,u *big.Int,v *big.Int,message string) *ECDSASignature {
+func LockoutCalcSignature(peers *list.List, u *big.Int, v *big.Int, message string) *ECDSASignature {
 	signature := new(ECDSASignature)
 	signature.New()
+	N := secp256k1.S256().N
 
 	w := calculateW(peers)
-	rx,ry := calculateR(peers)
+	rx, ry := calculateR(peers)
 
-	r := new(big.Int).Mod(rx,secp256k1.S256().N)
-	mu := decrypt(PaillierPrivateKey,w)
-	mu.Mod(mu,secp256k1.S256().N)
+	r := new(big.Int).Mod(rx, N)
+	mu := decrypt(PaillierPrivateKey, w)
+	mu.Mod(mu, secp256k1.S256().N)
 	muInverse := new(big.Int).ModInverse(mu, configs.G.N)
-	msgDigest,_ := new(big.Int).SetString(message,16)
-	mMultiU := cipherMultiply((&PaillierPrivateKey.PublicKey),u, msgDigest)
-	rMultiV := cipherMultiply((&PaillierPrivateKey.PublicKey),v, r)
-	sEnc := cipherMultiply((&PaillierPrivateKey.PublicKey),cipherAdd((&PaillierPrivateKey.PublicKey),mMultiU, rMultiV), muInverse)
+	msgDigest, _ := new(big.Int).SetString(message, 16)
+	mMultiU := cipherMultiply((&PaillierPrivateKey.PublicKey), u, msgDigest)
+	rMultiV := cipherMultiply((&PaillierPrivateKey.PublicKey), v, r)
+	sEnc := cipherMultiply((&PaillierPrivateKey.PublicKey), cipherAdd((&PaillierPrivateKey.PublicKey), mMultiU, rMultiV), muInverse)
 
-	s := decrypt(PaillierPrivateKey,sEnc)
-	s.Mod(s,secp256k1.S256().N)
+	s := decrypt(PaillierPrivateKey, sEnc)
+	s.Mod(s, secp256k1.S256().N)
 
 	signature.setR(r)
 	signature.setS(s)
 
-	two,_ := new(big.Int).SetString("2",10)
-	ryy := new(big.Int).Mod(ry,two)
-	zero,_ := new(big.Int).SetString("0",10)
+	two, _ := new(big.Int).SetString("2", 10)
+	ryy := new(big.Int).Mod(ry, two)
+	zero, _ := new(big.Int).SetString("0", 10)
 	cmp := ryy.Cmp(zero)
 	recoveryParam := 1
 	if cmp == 0 {
 		recoveryParam = 0
 	}
 
-	tt := new(big.Int).Rsh(secp256k1.S256().N,1)
+	tt := new(big.Int).Rsh(N, 1)
 	comp := s.Cmp(tt)
 	if comp > 0 {
 		recoveryParam = 1
-		s = new(big.Int).Sub(secp256k1.S256().N,s)
-		signature.setS(s);
+		s = new(big.Int).Sub(N, s)
+		signature.setS(s)
 	}
 	//test
 	signature.setRecoveryParam(int32(recoveryParam))
 	return signature
-
 }
 
-func Sign(peers *list.List,encX *big.Int,message string) *ECDSASignature {
+func Sign(peers *list.List, encX *big.Int, message string) *ECDSASignature {
 	//所有负责节点来验证公钥和加密的私钥
-	LockoutCalcCommitment(peers,encX)
-	LockoutCalcZeroKnowledgeProverI1(peers,encX)
+	LockoutCalcCommitment(peers, encX)
+	LockoutCalcZeroKnowledgeProverI1(peers, encX)
 
-	if LockoutCheckCommitment(peers)== false {
+	if LockoutCheckCommitment(peers) == false {
 		return nil
 	}
-	if LockoutVerifyZeroKnowledgeI1(peers,encX)== false {
+	if LockoutVerifyZeroKnowledgeI1(peers, encX) == false {
 		return nil
 	}
 
@@ -499,14 +501,14 @@ func Sign(peers *list.List,encX *big.Int,message string) *ECDSASignature {
 	LockoutCalcCommitmentOfSign(peers)
 	LockoutCalcZeroKnowledgeProverI2OfSign(peers)
 
-	if LockoutCheckCommitmentOfsign(peers)==false{
+	if LockoutCheckCommitmentOfsign(peers) == false {
 		return nil
 	}
-	if LockoutVerifyZeroKnowledgeI2OfSign(peers,u)==false{
+	if LockoutVerifyZeroKnowledgeI2OfSign(peers, u) == false {
 		return nil
 	}
 	//生成签名
-	sinature:=LockoutCalcSignature(peers,u,v,message)
+	sinature := LockoutCalcSignature(peers, u, v, message)
 	return sinature
 }
 
@@ -515,31 +517,29 @@ func calculateW(peers *list.List) *big.Int {
 	e := peers.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
 		wi := ((e.Value).(*ProverInfo)).getOpenRiWi().GetSecrets()[1]
-		w = cipherAdd((&PaillierPrivateKey.PublicKey),w,wi);
+		w = cipherAdd((&PaillierPrivateKey.PublicKey), w, wi)
 	}
 	return w
 }
 
-func calculateR(peers *list.List) (*big.Int,*big.Int) {
+func calculateR(peers *list.List) (*big.Int, *big.Int) {
 
 	rr := ((peers.Front().Value).(*ProverInfo)).getOpenRiWi().GetSecrets()[0]
-	rrlen := ((rr.BitLen()+7)/8)
-	rrs := make([]byte,rrlen)
-	math.ReadBits(rr,rrs[:])
-	rx,ry := secp256k1.S256().Unmarshal(rrs[:])
+	rrlen := ((rr.BitLen() + 7) / 8)
+	rrs := make([]byte, rrlen)
+	math.ReadBits(rr, rrs[:])
+	rx, ry := secp256k1.S256().Unmarshal(rrs[:])
 
 	e := peers.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
-
 		rri := ((e.Value).(*ProverInfo)).getOpenRiWi().GetSecrets()[0]
-		rrilen := ((rri.BitLen()+7)/8)
-		rris := make([]byte,rrilen)
-		math.ReadBits(rri,rris[:])
-		rrix,rriy := secp256k1.S256().Unmarshal(rris[:])
-
-		rx,ry = secp256k1.S256().Add(rx,ry,rrix,rriy)
+		rrilen := ((rri.BitLen() + 7) / 8)
+		rris := make([]byte, rrilen)
+		math.ReadBits(rri, rris[:])
+		rrix, rriy := secp256k1.S256().Unmarshal(rris[:])
+		rx, ry = secp256k1.S256().Add(rx, ry, rrix, rriy)
 	}
-	return rx,ry
+	return rx, ry
 }
 
 func calculateU(peers *list.List) *big.Int {
@@ -547,7 +547,8 @@ func calculateU(peers *list.List) *big.Int {
 	e := peers.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
 		ui := ((e.Value).(*ProverInfo)).getOpenUiVi().GetSecrets()[0]
-		u = cipherAdd((&PaillierPrivateKey.PublicKey),u,ui)
+		u = cipherAdd((&PaillierPrivateKey.PublicKey), u, ui)
+
 	}
 	return u
 }
@@ -557,8 +558,7 @@ func calculateV(userList *list.List) *big.Int {
 	e := userList.Front()
 	for e = e.Next(); e != nil; e = e.Next() {
 		vi := ((e.Value).(*ProverInfo)).getOpenUiVi().GetSecrets()[1]
-		v = cipherAdd((&PaillierPrivateKey.PublicKey),v,vi)
+		v = cipherAdd((&PaillierPrivateKey.PublicKey), v, vi)
 	}
 	return v
 }
-

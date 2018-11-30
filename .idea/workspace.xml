@@ -2,16 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01c0cac2-1b4b-48e9-b601-cd8477c4e2d4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/kgcenter/commitments/commitment.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/commitments/consensusparams.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/commitments/multitrapdoorcommitment.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/commitments/mutitrapdoormasterpublickey.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/commitments/open.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/paillier.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/plaintext.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/safeprimegenerator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/thresholdkey.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/thresholdkeygeneraor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kgcenter/paillier/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DistributedControlRightManagement.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DistributedControlRightManagement.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/atmosphere_erc20.sol" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/atmosphere_erc20.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main_pbc.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main_pbc.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configs/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/ecdsasign.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/ecdsasign.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kgcenter/keyshardingalgorithm_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/keyshardingalgorithm_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kgcenter/paillier.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/paillier.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kgcenter/pbcpairing.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/pbcpairing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kgcenter/peer.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kgcenter/util_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/util_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/zerokproof.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/zerokproof.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/zerokproof_i1.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/zerokproof_i1.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kgcenter/zerokproof_i2.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/zerokproof_i2.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kgcenter/zerokpublicparams.go" beforeDir="false" afterPath="$PROJECT_DIR$/kgcenter/zerokpublicparams.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p2p/listener.go" beforeDir="false" afterPath="$PROJECT_DIR$/p2p/listener.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/eczkp.py" beforeDir="false" afterPath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/eczkp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/sdsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/sdsa.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,156 +48,202 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="1" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="4" />
+          <entry key="INSTALL" value="1" />
+          <entry key="c" value="1" />
+          <entry key="go" value="302" />
+          <entry key="h" value="1" />
+          <entry key="md" value="3" />
+          <entry key="py" value="5" />
+          <entry key="sol" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="4" />
+          <entry key="C++" value="2" />
+          <entry key="Go" value="302" />
+          <entry key="Markdown" value="3" />
+          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Python" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="go" value="3232" />
+          <entry key="md" value="1" />
+          <entry key="sol" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Go" value="3232" />
+          <entry key="Markdown" value="1" />
+          <entry key="PLAIN_TEXT" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.go.postfix.template.usages.trigger">
+        <counts>
+          <entry key=".len" value="1" />
         </counts>
       </usages-collector>
     </session>
     <session id="-1434466713">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.0" value="3" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="4" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="28" />
-          <entry key="md" value="1" />
+          <entry key="go" value="46" />
+          <entry key="md" value="2" />
+          <entry key="sol" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="28" />
-          <entry key="Markdown" value="1" />
+          <entry key="Go" value="46" />
+          <entry key="Markdown" value="2" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="77" />
+          <entry key="go" value="219" />
+          <entry key="sol" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="77" />
+          <entry key="Go" value="219" />
+          <entry key="PLAIN_TEXT" value="14" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmd/main.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+            <state relative-caret-position="106">
+              <caret line="197" column="5" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
               <folding>
-                <element signature="e#14#100#0" expanded="true" />
+                <element signature="e#18#577#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i2.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="199" column="35" selection-start-line="199" selection-start-column="35" selection-end-line="199" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/configs/config.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/paillier.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="23" column="22" lean-forward="true" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+            <state relative-caret-position="98">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/pbcpairing.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/commitments/commitment.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+            <state relative-caret-position="154">
+              <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/paillier.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/commitments/consensusparams.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="63" column="34" lean-forward="true" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="519" column="12" lean-forward="true" selection-start-line="519" selection-start-column="12" selection-end-line="519" selection-end-column="12" />
+            <state relative-caret-position="26">
+              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
               <folding>
-                <element signature="e#18#348#0" expanded="true" />
+                <element signature="e#21#75#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/utils.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+            <state relative-caret-position="462">
+              <caret line="37" column="19" lean-forward="true" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/ecdsasign.go">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/plaintext.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/safeprimegenerator.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/thresholdkey.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-102">
+              <caret line="216" selection-start-line="216" selection-end-line="216" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kgcenter/paillier/thresholdkeygeneraor.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1050">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#18#79#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kgcenter/zerokpublicparams.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="392">
-              <caret line="64" column="63" lean-forward="true" selection-start-line="64" selection-start-column="63" selection-end-line="64" selection-end-column="63" />
+              <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
               <folding>
-                <element signature="e#18#148#0" expanded="true" />
+                <element signature="e#18#190#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i1.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="133" column="30" lean-forward="true" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -181,8 +251,28 @@
       <find>ECDSA Signature Verify Passed! (r,s) is a Valid Siganture!</find>
       <find>公钥(片)</find>
       <find>fmt.P</find>
+      <find>EncX:</find>
+      <find>sha256</find>
+      <find>0</find>
+      <find>generatePaillierKeyShares</find>
+      <find>PaillierPrivateKey</find>
+      <find>invalid memory address or nil pointer dereference</find>
+      <find>a1</find>
+      <find>ScalarMult</find>
+      <find>...</find>
+      <find>私钥长度</find>
+      <find>u := calculateU(peers)</find>
+      <find>fmt</find>
+      <find>秘密</find>
+      <find>实际计算人数</find>
+      <find>cipherMultiply</find>
+      <find>Mul</find>
+      <find>Decrypt</find>
+      <find>decrypt</find>
     </findStrings>
     <dirStrings>
+      <dir>$PROJECT_DIR$/../vendor/github.com/ethereum/go-ethereum/crypto</dir>
+      <dir>$PROJECT_DIR$/../../../Nik-U/pbc</dir>
       <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
@@ -193,15 +283,37 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/kgcenter/util.go" />
+        <option value="$PROJECT_DIR$/cmd/main_test.go" />
         <option value="$PROJECT_DIR$/kgcenter/keyshardingalgorithm_test.go" />
-        <option value="$PROJECT_DIR$/kgcenter/zerokproof_i2.go" />
-        <option value="$PROJECT_DIR$/kgcenter/zerokproof.go" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/cmd/main_ozone.go" />
+        <option value="$PROJECT_DIR$/p2p/listener.go" />
         <option value="$PROJECT_DIR$/kgcenter/ecdsasign.go" />
-        <option value="$PROJECT_DIR$/kgcenter/zerokproof_i1.go" />
-        <option value="$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go" />
         <option value="$PROJECT_DIR$/cmd/main.go" />
+        <option value="$PROJECT_DIR$/../../../ethereum/go-ethereum/crypto/secp256k1/curve.go" />
+        <option value="$PROJECT_DIR$/cmd/atmosphere_erc20.sol" />
+        <option value="$PROJECT_DIR$/kgcenter/util_test.go" />
+        <option value="$PROJECT_DIR$/cmd/main_pbc.go" />
+        <option value="$PROJECT_DIR$/kgcenter/zerokproof_i2.go" />
+        <option value="$PROJECT_DIR$/kgcenter/zerokproof_i1.go" />
+        <option value="$PROJECT_DIR$/kgcenter/zerokproof.go" />
+        <option value="$PROJECT_DIR$/kgcenter/commitments/consensusparams.go" />
+        <option value="$PROJECT_DIR$/kgcenter/commitments/open.go" />
+        <option value="$PROJECT_DIR$/kgcenter/commitments/commitment.go" />
+        <option value="$PROJECT_DIR$/kgcenter/commitments/multitrapdoorcommitment.go" />
+        <option value="$PROJECT_DIR$/kgcenter/prover.go" />
         <option value="$PROJECT_DIR$/configs/config.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/plaintext.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier.go" />
+        <option value="$PROJECT_DIR$/kgcenter/pbcpairing.go" />
+        <option value="$PROJECT_DIR$/kgcenter/util.go" />
+        <option value="$PROJECT_DIR$/kgcenter/zerokpublicparams.go" />
+        <option value="$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/safeprimegenerator.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/thresholdkey.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/thresholdkeygeneraor.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/utils.go" />
+        <option value="$PROJECT_DIR$/kgcenter/paillier/paillier.go" />
       </list>
     </option>
   </component>
@@ -211,10 +323,28 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="y" value="47" />
-    <option name="width" value="1326" />
-    <option name="height" value="866" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="158" />
+    <option name="y" value="27" />
+    <option name="width" value="1717" />
+    <option name="height" value="987" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyInterpreterInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -222,7 +352,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -245,19 +374,54 @@
               <item name="DistributedControlRightManagement" type="462c0819:PsiDirectoryNode" />
               <item name="kgcenter" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="DistributedControlRightManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedControlRightManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="kgcenter" type="462c0819:PsiDirectoryNode" />
+              <item name="commitments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedControlRightManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedControlRightManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="kgcenter" type="462c0819:PsiDirectoryNode" />
+              <item name="paillier" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedControlRightManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedControlRightManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="p2p" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedControlRightManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DistributedControlRightManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="poc-threshold-ecdsa-secp256k1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DistributedControlRightManagement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../paillier" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kgcenter/paillier" />
+      <recent name="$PROJECT_DIR$/kgcenter/commitments" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -271,7 +435,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="DistributedControlRightManagement" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -282,11 +446,71 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main_pbc.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="DistributedControlRightManagement" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/cmd/main_pbc.go" />
+      <package value="github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestPointMul in github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="DistributedControlRightManagement" />
+      <working_directory value="$PROJECT_DIR$/kgcenter" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestPointMul$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ecdsa" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="DistributedControlRightManagement" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build main.go" />
+      <item itemvalue="Go Build.go build main_pbc.go" />
+      <item itemvalue="Python.ecdsa" />
+      <item itemvalue="Go Test.TestPointMul in github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Build.go build main_pbc.go" />
+        <item itemvalue="Go Test.TestPointMul in github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" />
+        <item itemvalue="Python.ecdsa" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="TestHistory">
+    <history-entry file="TestPointMul_in_github_com_SmartMeshFoundation_Atmosphere_DistributedControlRightManagement_kgcenter - 2018.11.29 at 18h 47m 14s.xml">
+      <configuration name="TestPointMul in github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestPointMul_in_github_com_SmartMeshFoundation_Atmosphere_DistributedControlRightManagement_kgcenter - 2018.11.29 at 18h 48m 00s.xml">
+      <configuration name="TestPointMul in github.com/SmartMeshFoundation/Atmosphere/DistributedControlRightManagement/kgcenter" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -298,23 +522,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="47" width="1326" height="866" extended-state="0" />
+    <frame x="158" y="27" width="1717" height="987" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.265625" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2010772" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29760227" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.23253012" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.213253" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38535413" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32863188" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32774192" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32863188" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.24609844" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.45301205" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053364" side_tool="true" weight="0.37334934" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -327,132 +551,437 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kgcenter/ecdsasign.go</url>
+          <line>69</line>
+          <properties />
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go</url>
+          <line>531</line>
+          <properties />
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kgcenter/ecdsasign.go</url>
+          <line>70</line>
+          <properties />
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoApplicationRunConfiguration">
+        <watch expression="BitCurve" language="go" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>BitCurve</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/ethereum/go-ethereum/crypto/secp256k1/curve.go" />
-    <entry file="file://$PROJECT_DIR$/kgcenter/peer.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
+    <entry file="file:///usr/local/go/src/crypto/ecdsa/ecdsa.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="91" column="14" lean-forward="true" selection-start-line="91" selection-start-column="14" selection-end-line="91" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/go/src/math/big/prime.go">
+    <entry file="file://$PROJECT_DIR$/../vendor/github.com/btcsuite/btcd/btcec/signature.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+        <state relative-caret-position="102">
+          <caret line="120" column="6" lean-forward="true" selection-start-line="120" selection-start-column="6" selection-end-line="120" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/main_pbc.go">
+    <entry file="file://$PROJECT_DIR$/../vendor/github.com/ethereum/go-ethereum/crypto/signature.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="5" column="26" lean-forward="true" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        <state relative-caret-position="406">
+          <caret line="64" column="27" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/zerokpublicparams.go">
+    <entry file="file://$PROJECT_DIR$/../../../Nik-U/pbc/c.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/util_test.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/util.go">
+    <entry file="file://$PROJECT_DIR$/../../../Nik-U/pbc/rand_hook.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-197">
-          <caret line="126" column="35" lean-forward="true" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
+        <state relative-caret-position="308">
+          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Nik-U/pbc/INSTALL">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/pbc/pbc.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="16" column="24" lean-forward="true" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Nik-U/pbc/element.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1654">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Nik-U/pbc/generation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="178" column="14" lean-forward="true" selection-start-line="178" selection-start-column="14" selection-end-line="178" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/proc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1329">
+          <caret line="108" column="9" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="587" selection-start-line="587" selection-end-line="587" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../ethereum/go-ethereum/crypto/secp256k1/curve.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3752">
+          <caret line="278" selection-start-line="278" selection-end-line="278" />
           <folding>
-            <element signature="e#18#275#0" expanded="true" />
+            <element signature="e#1861#2098#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/pbcpairing.go">
+    <entry file="file://$PROJECT_DIR$/p2p/listener.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        <state relative-caret-position="238">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/paillier.go">
+    <entry file="file://$PROJECT_DIR$/cmd/atmosphere_erc20.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        <state relative-caret-position="798">
+          <caret line="153" column="41" lean-forward="true" selection-start-line="153" selection-start-column="41" selection-end-line="153" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../utils/crypto.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+          <folding>
+            <element signature="e#15#236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/math/big/arith.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/math/big/nat.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="63" column="34" lean-forward="true" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
+        <state relative-caret-position="500">
+          <caret line="75" column="1" selection-start-line="75" selection-start-column="1" selection-end-line="75" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i2.go">
+    <entry file="file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="199" column="35" selection-start-line="199" selection-start-column="35" selection-end-line="199" selection-end-column="35" />
+        <state relative-caret-position="196">
+          <caret line="146" column="18" lean-forward="true" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof.go">
+    <entry file="file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/secdsa.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../CrossChainTransaction/util/util.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="159" column="34" selection-start-line="159" selection-start-column="34" selection-end-line="159" selection-end-column="34" />
+        <state relative-caret-position="267">
+          <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/ecdsasign.go">
+    <entry file="file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/address.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="64" column="63" lean-forward="true" selection-start-line="64" selection-start-column="63" selection-end-line="64" selection-end-column="63" />
+        <state relative-caret-position="223">
+          <caret line="204" column="22" selection-start-line="204" selection-start-column="22" selection-end-line="204" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/util_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
           <folding>
-            <element signature="e#18#148#0" expanded="true" />
+            <element signature="e#18#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../sirupsen/logrus/exported.go">
+    <entry file="file:///usr/local/go/src/math/big/int.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
+        <state relative-caret-position="46">
+          <caret line="308" column="17" lean-forward="true" selection-start-line="308" selection-start-column="17" selection-end-line="308" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i1.go">
+    <entry file="file://$PROJECT_DIR$/cmd/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="133" column="30" lean-forward="true" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+        <state relative-caret-position="84">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go">
+    <entry file="file://$PROJECT_DIR$/kgcenter/commitments/open.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="519" column="12" lean-forward="true" selection-start-line="519" selection-start-column="12" selection-end-line="519" selection-end-column="12" />
+        <state relative-caret-position="294">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/prover.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="275" column="1" lean-forward="true" selection-start-line="275" selection-start-column="1" selection-end-line="275" selection-end-column="1" />
           <folding>
-            <element signature="e#18#348#0" expanded="true" />
+            <element signature="e#18#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/main.go">
+    <entry file="file://$PROJECT_DIR$/../../../Roasbeef/go-go-gadget-paillier/paillier.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-          <folding>
-            <element signature="e#14#100#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="168">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/configs/config.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
-          <caret line="23" column="22" lean-forward="true" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+          <folding>
+            <element signature="e#17#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/main_pbc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/ecdsasign.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#18#231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/poc-threshold-ecdsa-secp256k1/ecdsa.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="10" column="70" lean-forward="true" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1129">
+          <caret line="113" column="37" lean-forward="true" selection-start-line="113" selection-start-column="37" selection-end-line="113" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i1.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding>
+            <element signature="e#18#136#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/zerokproof_i2.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="103" column="35" lean-forward="true" selection-start-line="103" selection-start-column="35" selection-end-line="103" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/commitments/mutitrapdoormasterpublickey.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/commitments/multitrapdoorcommitment.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1590">
+          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding>
+            <element signature="e#18#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/util.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="123" column="19" lean-forward="true" selection-start-line="123" selection-start-column="19" selection-end-line="123" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/zerokpublicparams.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="28" column="22" lean-forward="true" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding>
+            <element signature="e#18#190#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/pbcpairing.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/keyshardingalgorithm.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="197" column="5" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
+          <folding>
+            <element signature="e#18#577#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/utils.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="37" column="19" lean-forward="true" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/thresholdkeygeneraor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1050">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#18#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/thresholdkey.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="216" selection-start-line="216" selection-end-line="216" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/safeprimegenerator.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/plaintext.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/commitments/commitment.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/commitments/consensusparams.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#21#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kgcenter/paillier/paillier.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
         </state>
       </provider>
     </entry>
